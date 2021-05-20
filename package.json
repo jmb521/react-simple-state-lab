@@ -34,5 +34,8 @@
     "enzyme-adapter-react-16": "^1.1.1",
     "mocha": "^6.2.1",
     "sinon": "^7.5.0"
+  }, 
+  "jest": {
+    "testEnvironment": "jsdom"
   }
 }

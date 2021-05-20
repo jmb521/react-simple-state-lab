@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { configure, shallow } from 'enzyme';
+import { configure, shallow, mount } from 'enzyme';
 import { expect } from 'chai';
 import sinon from 'sinon';
 
@@ -25,7 +25,7 @@ describe('<Cell />', () => {
   let cellWhite
   
   beforeEach(() => {
-    cellWhite = shallow(<Cell value="#fff"/>);
+    cellWhite = mount(<Cell value="#fff"/>);
   });
 
   it("is a correctly defined and exported React component which renders a <div> with a className of 'cell'", () => {
@@ -48,7 +48,11 @@ describe('<Cell />', () => {
 
   it("has an event listener that, when clicked, calls this.setState() once (make sure you aren't setting state directly, but instead using the component's 'setState' method)", () => {
     const setState = sinon.spy(Cell.prototype, 'setState');
-    cellWhite.find('div').simulate('click')
+    const foundDiv = cellWhite.find('div')
+    foundDiv.simulate('click')
+    cellWhite.find('div').at(0).simulate('click')
+    cellWhite.update()
+    console.log("callCount", setState.callCount)
     expect(setState.calledOnce).to.equal(true);
   })
 
